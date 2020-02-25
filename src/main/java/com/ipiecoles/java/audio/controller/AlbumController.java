@@ -24,6 +24,6 @@ public class AlbumController {
     ){
         Album album = new Album();
         album.setTitle(titleAlbum);
-        album.setArtistId(idArtist);
+        //album.setArtistId(idArtist);
     }
 }

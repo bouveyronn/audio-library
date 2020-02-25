@@ -1,4 +1,6 @@
 package com.ipiecoles.java.audio.Model;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,13 +10,21 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "Title")//superflu car noms identiques
+    @Column(name = "Title")
     private String title;
 
-//    @OneToOne
-//    @JoinColumn(name = "ArtistId", nullable = false)
-    @Column(name = "ArtistId")
-    private Integer artistId;
+    public Album(Integer id, String title, Artist artist) {
+        this.id = id;
+        this.title = title;
+        this.artist = artist;
+    }
+
+    @ManyToOne
+    @JoinColumn(name ="artistId", nullable = false)
+    private Artist artist;
+
+    public Album() {
+    }
 
     public Integer getId() {
         return id;
@@ -32,13 +42,11 @@ public class Album {
         this.title = title;
     }
 
-    public Integer getArtistId() {
-        return artistId;
+    public Artist getArtist() {
+        return artist;
     }
 
-    public void setArtistId(Integer artistId) {
-        this.artistId = artistId;
+    public void setArtist(Artist artist) {
+        this.artist = artist;
     }
-
-
 }
