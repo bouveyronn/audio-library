@@ -11,4 +11,6 @@ import java.util.List;
 public interface ArtistRepository extends JpaRepository<Artist, Long> {
 
     Page<Artist> findByName(String name, Pageable pageable);
+
+    Artist findOneByName(String name);
 }

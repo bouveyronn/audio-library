@@ -1,6 +1,7 @@
 package com.ipiecoles.java.audio.controller;
 
 import com.ipiecoles.java.audio.Model.Artist;
+import com.ipiecoles.java.audio.exception.EntityConflictException;
 import com.ipiecoles.java.audio.repository.AlbumRepository;
 import com.ipiecoles.java.audio.repository.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/artists")
+@RequestMapping(value = "/artists")
 public class ArtistController {
 
     @Autowired
@@ -27,7 +28,11 @@ public class ArtistController {
     public Artist findById(
             @PathVariable(value = "id") Long id
     ){
-        return artistRepository.findById(id).get();
+        Optional<Artist> a = artistRepository.findById(id);
+        if(a.isPresent()){
+            return a.get();
+        }
+        throw new EntityNotFoundException("L'employé d'id "+ id +  " n'éxiste pas !");
     }
 
     @RequestMapping(params = "name",method = RequestMethod.GET)
@@ -51,8 +56,13 @@ public class ArtistController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Artist createArtist(@RequestBody Artist artist){
+    public Artist createArtist(@RequestBody Artist artist) throws EntityConflictException{
+        Artist checkArtist = artistRepository.findOneByName(artist.getName());
+        if(checkArtist != null){
+            throw new EntityConflictException("Erreur, cet artiste existe déjà");
+        }
         return artistRepository.save(artist);
+
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/{id}")

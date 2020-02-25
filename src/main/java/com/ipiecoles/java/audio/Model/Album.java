@@ -2,6 +2,7 @@ package com.ipiecoles.java.audio.Model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "album")
@@ -10,7 +11,7 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "Title")
+    @NotNull
     private String title;
 
     public Album(Integer id, String title, Artist artist) {

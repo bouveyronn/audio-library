@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.Query;
 public interface AlbumRepository extends JpaRepository<Album, Integer> {
 
 
-
+    Album findByTitle(String title);
 }

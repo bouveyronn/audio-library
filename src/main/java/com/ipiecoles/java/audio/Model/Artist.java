@@ -2,6 +2,7 @@ package com.ipiecoles.java.audio.Model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.awt.*;
 import java.util.HashSet;
 import java.util.List;
@@ -25,7 +26,7 @@ public class Artist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "Name")//superflu car noms identiques
+    @NotNull
     private String name;
 
     @OneToMany(mappedBy = "artist")
