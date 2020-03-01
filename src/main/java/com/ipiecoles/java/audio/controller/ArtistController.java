@@ -42,7 +42,7 @@ public class ArtistController {
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = "10") Integer size
     ){
-        return artistRepository.findByName(name,PageRequest.of(page,size));
+        return artistRepository.findByNameContaining(name,PageRequest.of(page,size));
     }
 
     @RequestMapping(value = "")
